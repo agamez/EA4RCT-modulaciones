@@ -10,7 +10,7 @@ FileOut='rbb.wav';
 
 %% Carga, conversion y salvado de ficheros
 [bb, rbb] = load_resample(FileIn, Fs);
-wavwrite(rbb*0.9, Fs, FileOut);
+wavwrite(rbb*0.99, Fs, FileOut);
 
 %% Eje de tiempos
 tFin = length(rbb)/Fs;
@@ -42,17 +42,17 @@ plot(dbl);
 figure
 plotFFT(dbl, Fs);
 
-wavwrite(dbl*0.9, Fs, 'dbl.wav');
+wavwrite(dbl/max(dbl)*0.9, Fs, 'dbl.wav');
 
 %% AM
-im = 0.9;
+im = 0.3;
 am = p.*(rbb+im);
 figure
 plot(am);
 figure
 plotFFT(am, Fs);
 
-wavwrite(am*0.9, Fs, 'am.wav');
+wavwrite(am/max(am)*0.9, Fs, 'am.wav');
 
 %% SSB
 %% USB
@@ -63,7 +63,7 @@ plot(abs(usb))
 figure
 plotFFT(usb, Fs);
 
-wavwrite(usb*0.9, Fs, 'usb.wav');
+wavwrite(usb/max(usb)*0.9, Fs, 'usb.wav');
 
 %% LSB
 lsb = p.*rbb + psin.*imag(hilbert(rbb));
@@ -73,4 +73,4 @@ plot(abs(lsb))
 figure
 plotFFT(lsb, Fs);
 
-wavwrite(lsb*0.9, Fs, 'lsb.wav');
+wavwrite(lsb/max(lsb)*0.9, Fs, 'lsb.wav');
